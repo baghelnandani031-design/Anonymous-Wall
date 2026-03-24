@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Admin Dashboard - Anonymous Wall</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f8f9fa; }
+        .stats-card { background: linear-gradient(45deg, #0072ff, #00c6ff); color: white; border-radius: 15px; }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-dark bg-dark mb-4">
+    <div class="container">
+        <a class="navbar-brand" href="#">Admin Panel</a>
+        <a href="/" class="btn btn-outline-light btn-sm">View Public Wall</a>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card stats-card p-4 shadow-sm">
+                <h3>Total Posts</h3>
+                <h2 class="display-4 fw-bold">{{ count }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-header bg-white fw-bold">Manage Compliments</div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>ID</th>
+                            <th>Message</th>
+                            <th>Date Posted</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for msg in messages %}
+                        <tr>
+                            <td>{{ msg.id }}</td>
+                            <td>{{ msg.text }}</td>
+                            <td>{{ msg.date_posted.strftime('%d %b, %H:%M') }}</td>
+                            <td>
+                                <a href="/delete/{{ msg.id }}" class="btn btn-danger btn-sm" 
+                                   onclick="return confirm('Are you sure you want to delete this?')">Delete</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

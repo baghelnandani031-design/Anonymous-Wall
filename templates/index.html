@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>The Anonymous Compliment Wall</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 50%, #fbc2eb 100%);
+      min-height: 100vh;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    /* Glassmorphism Effect */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 25px;
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+    }
+
+    .btn-submit {
+      background: linear-gradient(45deg, #00c6ff, #0072ff);
+      border: none;
+      transition: 0.3s;
+    }
+
+    .btn-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 114, 255, 0.3);
+    }
+
+    /* Sticker Style for Compliments */
+    .compliment-sticker {
+      background: #fff3cd;
+      border-left: 5px solid #ffc107;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      transition: 0.3s;
+    }
+
+    .compliment-sticker:hover {
+      transform: rotate(-1deg);
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm mb-4">
+    <div class="container">
+      <a class="navbar-brand" href="#">Compliment Wall</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <form class="d-flex ms-auto mt-2 mt-lg-0">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container pb-5">
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-8 col-lg-6">
+
+        <div class="glass-card p-4 p-md-5 text-center mb-5">
+          <h1 class="fw-bold mb-2">Anonymous Wall</h1>
+          <p class="text-muted mb-4">किसी के दिन को खास बनाएं, एक प्यारी बात लिखकर।</p>
+
+          <form action="/post" method="post">
+            <div class="mb-4">
+              <textarea class="form-control border-0 shadow-sm" name="compliment_text" rows="3"
+                placeholder="यहाँ अपनी तारीफ लिखें..." required></textarea>
+            </div>
+
+            <div class="d-grid gap-2">
+              <button type="submit" class="btn btn-submit btn-lg text-white fw-bold rounded-pill">
+                Post to Wall 🚀
+              </button>
+            </div>
+          </form>
+
+          <div class="mt-4 pt-3 border-top">
+            <h4 class="text-primary fw-bold">{{ feedback or 'Ready to share love?' }}</h4>
+            <p class="text-muted small mb-0">Total Kindness Shared: 142</p>
+          </div>
+
+          <div class="mt-4">
+            <a href="{{ url_for('reset') }}" class="btn btn-light btn-sm rounded-pill text-muted px-4">Clear Form</a>
+          </div>
+        </div>
+
+
+        <div class="mt-4">
+          <h5 class="fw-bold mb-3">Recent Compliments:</h5>
+          {% for msg in messages %}
+          <div class="compliment-sticker shadow-sm mb-3">
+            "{{ msg.text }}"
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+
+</html>
